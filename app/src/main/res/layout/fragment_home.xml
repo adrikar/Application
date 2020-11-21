@@ -1,14 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/homeBackground"
+    android:orientation="vertical"
     tools:context=".Fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/layout_user_information"
+        android:weightSum="4"
+        android:background="@color/colorButton"
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <ImageView
+            android:src="@drawable/ic_baseline_account_circle_24"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_user_name"
+                android:text="Usuario"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/txt_member_type"
+                android:text="Usuario"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_booking"
+            android:layout_marginRight="8dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="8dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_baseline_event_note_24"
+                    android:layout_width="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="50dp"/>
+
+                <TextView
+                    android:text="Reservas"
+                    android:fontFamily="@font/bellerose"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="dimen/textCardSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_cart"
+                android:layout_marginRight="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="8dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_shopping_cart_24"
+                        android:layout_width="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="50dp"/>
+                    <TextView
+                        android:text="Pedidos"
+                        android:fontFamily="@font/bellerose"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="dimen/textCardSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_history"
+            android:layout_marginRight="8dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="8dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_baseline_history_24"
+                    android:layout_width="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="50dp"/>
+                <TextView
+                    android:text="Historial"
+                    android:fontFamily="@font/bellerose"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="dimen/textCardSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_notification"
+            android:layout_marginRight="8dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="8dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/ic_baseline_notifications_24"
+                    android:layout_width="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="50dp"/>
+                <TextView
+                    android:text="Pedidos"
+                    android:fontFamily="@font/bellerose"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="dimen/textCardSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+    </LinearLayout>
