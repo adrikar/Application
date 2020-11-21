@@ -9,23 +9,20 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="159dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="159dp">
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="312dp"
         android:layout_height="120dp"
-        android:hint="@string/hint"
+        android:hint="hint"
         tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="177dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="177dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="409dp"
         android:layout_height="175dp"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
