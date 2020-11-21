@@ -1,10 +1,20 @@
 package com.example.application;
 
 
+import android.accounts.Account;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
 import android.view.View.*;
 import android.widget.*;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.application.Common.Common;
 import com.example.application.Fragments.*;
+import com.example.application.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.*;
 import com.google.android.material.bottomsheet.*;
 import com.google.android.material.textfield.*;
@@ -13,7 +23,7 @@ import com.google.firebase.firestore.*;
 import butterknife.*;
 import io.reactivex.annotations.*;
 
-public class HomeActivity {
+public class HomeActivity extends Context {
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
@@ -21,7 +31,7 @@ public class HomeActivity {
 
     CollectionReference userRef;
 
-    @java.lang.Override
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -29,20 +39,20 @@ public class HomeActivity {
 
 
         //init
-        userRef = FireBaseFireStore.getInstance().collection("User");
+        userRef = FirebaseFirestore.getInstance().collection("User");
 
         if(getIntent() != null) {
             boolean isLogin = getIntent().getBooleanExtra(Common.IS_LOGIN, false);
             if(isLogin){
 
                 AccountKit.getCurrentAccount(new AccountKitCallback<Account>(){
-                    @java.lang.Override
+                    @Override
                     public void onSuccess(Account account){
                         if(account !=null){
                             DocumentReference currentUser =userRef.document(account.getPhoneNumber().toString());
                             currentUser.get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
-                                        @java.lang.Override
+                                        @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot>task){
                                                     if(task.isSuccessful()){
                                                         DocumentSnapshot userSnapshot = task.getResult();
@@ -107,12 +117,12 @@ public class HomeActivity {
                       .addOnSuccessListener(new OnSuccessListener<Void>(){
                           @Override
                           public void onSuccess(Void aVoid){
-                              Toast.makeText(HomeActivity.this," Gracias", Toast.LENGTH.SHORT)
+                              Toast.makeText(HomeActivity.this," Gracias", Toast.LENGTH_SHORT).show();
                           }
-                      })
+                      });
 
             }
-        })
+        });
 
     }
 
