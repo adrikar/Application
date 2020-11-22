@@ -31,4 +31,18 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="493dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="menu"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="566dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="53dp"
+        android:layout_height="514dp"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="51dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

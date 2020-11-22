@@ -14,7 +14,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
            android:id="@+id/edt_name"
-          android:hint="Tu nombre"
+          android:text="Tu nombre"
           android:inputType="text"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"/>
@@ -25,7 +25,7 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edt_address"
-        android:hint="Tu Direccion"
+        android:text="Tu Direccion"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
