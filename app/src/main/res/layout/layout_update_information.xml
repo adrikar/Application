@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-           android:id="@+id/edt_name"
-          android:text="Tu nombre"
-          android:inputType="text"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edt_name"
+        android:hint="Tu nombre"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edt_address"
-        android:text="Tu Direccion"
+        android:hint="Tu Direccion"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -34,7 +34,7 @@
         android:text="Update"
         android:background="@color/colorButton"
         android:textColor="@android:color/white"
-        android:fontFamily="@font/bellerose"
+
         android:textSize="22sp"
         android:layut_above="@+id/txt_skip"
         android:layout_width="match_parent"
