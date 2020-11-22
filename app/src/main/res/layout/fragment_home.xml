@@ -10,6 +10,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/layout_user_information"
+        android:visibility="gone"
         android:weightSum="4"
         android:background="@color/colorButton"
         android:padding="8dp"
@@ -58,7 +59,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_booking"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:cardCornerRadius="8dp"
             android:layout_width="0dp"
@@ -78,17 +79,18 @@
 
                 <TextView
                     android:text="Reservas"
-                    android:fontFamily="@font/bellerose"
+
                     android:layout_gravity="center_horizontal"
                     android:textSize="dimen/textCardSize"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_cart"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 app:cardCornerRadius="8dp"
                 android:layout_width="0dp"
@@ -107,16 +109,17 @@
                         android:layout_height="50dp"/>
                     <TextView
                         android:text="Pedidos"
-                        android:fontFamily="@font/bellerose"
+
                         android:layout_gravity="center_horizontal"
                         android:textSize="dimen/textCardSize"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
                     </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/card_history"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:cardCornerRadius="8dp"
             android:layout_width="0dp"
@@ -135,17 +138,18 @@
                     android:layout_height="50dp"/>
                 <TextView
                     android:text="Historial"
-                    android:fontFamily="@font/bellerose"
+
                     android:layout_gravity="center_horizontal"
                     android:textSize="dimen/textCardSize"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_notification"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:cardCornerRadius="8dp"
             android:layout_width="0dp"
@@ -163,13 +167,55 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_height="50dp"/>
                 <TextView
-                    android:text="Pedidos"
-                    android:fontFamily="@font/bellerose"
+                    android:text="Notificacion"
+
                     android:layout_gravity="center_horizontal"
                     android:textSize="dimen/textCardSize"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
                     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ss.com.bannerslider.Slider
+            android:id="@+id/banner_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <RelativeLayout
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:text="Menu"
+                android:textColor="@color/colorButton"
+                android:textSize="18sp"/>
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="+id/recycler_look_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" />
+
+    </LinearLayout>
+
     </LinearLayout>
