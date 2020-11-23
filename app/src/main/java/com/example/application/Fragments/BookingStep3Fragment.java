@@ -1,9 +1,5 @@
 package com.example.application.Fragments;
 
-<<<<<<< HEAD
-
-public class BookingStep4Fragment {
-=======
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.application.R;
 
-public class BookingStep4Fragment extends Fragment {
-    static BookingStep4Fragment instance;
-    public static BookingStep4Fragment getInstance(){
+public class BookingStep3Fragment extends Fragment {
+    static BookingStep3Fragment instance;
+    public static BookingStep3Fragment getInstance(){
         if (instance == null)
-            instance = new BookingStep4Fragment();
+            instance = new BookingStep3Fragment();
         return instance;
 
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +28,6 @@ public class BookingStep4Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_booking_step_four, container,false);
+        return inflater.inflate(R.layout.fragment_booking_step_three, container,false);
     }
->>>>>>> 3307efa1f7aa07af672926f9b119cfc78b8e2f4b
 }
