@@ -66,6 +66,9 @@ public class HomeActivity extends Context {
                                                         DocumentSnapshot userSnapshot = task.getResult();
                                                         if (!userSnapshot.exists()) {
                                                             showUpdateDialog(account.getPhoneNumber().toString());
+                                                        }else{
+                                                            Common.currentUser = userSnapshot.toObject(User.class);
+                                                            bottomNavigationView.setSelectedItemId(R.id.action_home);
                                                         }
                                                         if (dialog.isShowing()) {
                                                             dialog.dismiss();
@@ -127,23 +130,27 @@ public class HomeActivity extends Context {
             @Override
             public void onClick(View view){
 
-              User user = new User(edt_name.getText().toString(),edt_address.getText().toString(), phoneNumber);
+              final User user = new User(edt_name.getText().toString(),edt_address.getText().toString(), phoneNumber);
               userRef.document(phoneNumber)
                       .set(user)
                       .addOnSuccessListener(new OnSuccessListener<Void>(){
                           @Override
-                          public void onSuccess(Void aVoid){
+                          public void onSuccess(Void aVoid) {
                               bottomSheetDialog.dismiss();
-                              Toast.makeText(HomeActivity.this," Gracias", Toast.LENGTH_SHORT).show();
-                          }
+                              if (dialog.isShowing())
+                                  dialog.dismiss();
+
+                              Common.currentUser = user;
+                              bottomNavigationView.setSelectedItemId(R.id.action_home);
+                              Toast.makeText(HomeActivity.this, " Gracias", Toast.LENGTH_SHORT).show();
+
                       }).addOnFailureListener(new OnFailureListener()){
-                          @Override
                           public void OnFailure(@NonNull Exception e){
                               bottomSheetDialog.dismiss();
                               Toast.makeText(HomeActivity.this,""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
+                      });
             }
         });
     bottomSheetDialog.setContentView(sheetView);
