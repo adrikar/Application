@@ -2,8 +2,9 @@ package com.example.application.Common;
 
 
 public class Common {
-    public static final int TIME_SLOT_TOTAL =6;
-    public static java.lang.String IS_LOGIN = "IsLogin";
+    public static String IS_LOGIN = "IsLogin";
+    public static User currentUser;
+    public static final int TIME_SLOT_TOTAL = 6;
 
     public static java.lang.String convertTimeSlotToString(int slot) {
         switch(slot)
