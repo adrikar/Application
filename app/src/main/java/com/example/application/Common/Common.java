@@ -24,6 +24,5 @@ public class Common {
             default:
                 return "Closed";
         }
-        return null;
     }
 }
