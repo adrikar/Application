@@ -1,10 +1,21 @@
 package com.example.application.Common;
 
 
+import android.content.Context;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.example.application.model.Salon;
 import com.example.application.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import io.paperdb.Paper;
 
 public class Common {
     public static final String KEY_ENABLE_BUTTON_NEXT = "ENABLE_BUTTON_NEXT";
@@ -36,6 +47,42 @@ public class Common {
                 return "Closed";
         }
     }
+    public static void updateToken(Context context, final String s){
+        FirebaseUser user  = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            MyToken myToken = MyToken();
+            myToken.setToken(s);
+            myToken.setTokenType(TOKEN_TYPE.CLIENT);
+            myToken.setUserPhone(user.getPhoneNumber());
 
-    
+            FirebaseFirestore.getInstance()
+                    .collection("Tokens")
+                    .document(user.getPhoneNumber().toString())
+                    .set(myToken)
+                    .addOnCompleteListener(task -> {
+
+                    });
+        }else{
+            Paper.init(context);
+            String localUser = Paper.book().read(Common.LOGGED_KEY);
+            if(localUser != null){
+                if(!TextUtils.isEmpty(localUser)){
+                    MyToken myToken = MyToken();
+                    myToken.setToken(s);
+                    myToken.setTokenType(TOKEN_TYPE.CLIENT);
+                    myToken.setUserPhone(localUser.getPhoneNumber());
+
+                    FirebaseFirestore.getInstance()
+                            .collection("Tokens")
+                            .document(localUser.getPhoneNumber().toString())
+                            .set(myToken)
+                            .addOnCompleteListener(task -> {
+
+                            });
+                }
+            }
+        }
+    }
+
+
 }
