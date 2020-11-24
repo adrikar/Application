@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.txt_skip)
     TextView txt_skip;
 
-    @OnClick(R.id.btn_loging) void loginUser(){
+    @OnClick(R.id.btn_login) void loginUser(){
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers).build(), APP_REQUEST_CODE);
@@ -87,27 +87,27 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener =  firebaseAuth1 -> {
+        authStateListener = firebaseAuth1 -> {
             FirebaseUser user = firebaseAuth1.getCurrentUser();
-            if(user != null){
+            if (user != null) {
                 checkUserFromFirebase(user);
             }
         };
-    }
 
-    FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null ){
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(Common.IS_LOGIN, true);
             startActivity(intent);
             finish();
-        }
-        else{
+        } else {
             setContentView(R.layout.activity_main);
             ButterKnife.bind(MainActivity.this);
         }
-
     }
+
+
 
     private void printKeyHash() {
         try {
