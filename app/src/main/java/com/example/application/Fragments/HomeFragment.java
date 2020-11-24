@@ -47,7 +47,7 @@ import ss.com.bannerslider.Slider;
 
 public class HomeFragment extends Fragment implements ILookbookLoadListener, IBannerLoadListener {
  private Unbinder unbinder;
- @BindView(R.layout.layout_user_information)
+ @BindView(R.id.layout_user_information)
  LinearLayout layout_user_information;
  @BindView(R.id.txt_user_name)
  TextView txt_user_name;
