@@ -28,6 +28,8 @@ import com.example.application.model.Banner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -45,7 +47,7 @@ import ss.com.bannerslider.Slider;
 
 public class HomeFragment extends Fragment implements ILookbookLoadListener, IBannerLoadListener {
  private Unbinder unbinder;
- @BindView(R.layout.layout_user_information)
+ @BindView(R.id.layout_user_information)
  LinearLayout layout_user_information;
  @BindView(R.id.txt_user_name)
  TextView txt_user_name;
@@ -61,6 +63,8 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
  CollectionReference bannerRef, lookbookRef;
  IBannerLoadListener iBannerLoadListener;
  ILookbookLoadListener iLookbookLoadListener;
+
+
     public HomeFragment() {
         bannerRef = FirebaseFirestore.getInstance().collection("Banner");
         lookbookRef = FirebaseFirestore.getInstance().collection("Lookbook");
@@ -77,7 +81,8 @@ public class HomeFragment extends Fragment implements ILookbookLoadListener, IBa
         iBannerLoadListener = this;
         iLookbookLoadListener = this;
 
-        if(AccountKit.getCurrentAccessToken() != null){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
             setUserInformation();
             loadBanner();
             loadLookbook();

@@ -1,9 +1,5 @@
 package com.example.application.Fragments;
 
-<<<<<<< HEAD
-
-public class BookingStep4Fragment {
-=======
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,5 +31,5 @@ public class BookingStep4Fragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_booking_step_four, container,false);
     }
->>>>>>> 3307efa1f7aa07af672926f9b119cfc78b8e2f4b
+
 }

@@ -132,7 +132,7 @@ public class BookingActivity extends AppCompatActivity {
         dialog = new SpotsDialog.Builder().setContext(this).setCancelable(false).build();
 
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        localBroadcastManager.registerReceiver(buttonNextReceiver, new IntentFilter(Common.KEY_ENABLE_BUTTON_NEXT);
+        localBroadcastManager.registerReceiver(buttonNextReceiver, new IntentFilter(Common.KEY_ENABLE_BUTTON_NEXT));
         
         setupStepView();
         setColorButton();
@@ -186,6 +186,6 @@ public class BookingActivity extends AppCompatActivity {
         stepList.add("Barber");
         stepList.add("Time");
         stepList.add("Confirm");
-        step_view.setSteps(stepList);
+        stepView.setSteps(stepList);
     }
 }

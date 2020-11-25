@@ -17,7 +17,7 @@
         app:textColorSelected="#FFFF"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="+id/recycler_time_slot"
+        android:id="@+id/recycler_time_slot"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
