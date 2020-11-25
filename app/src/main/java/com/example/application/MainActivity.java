@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.txt_skip)
     TextView txt_skip;
 
-    @OnClick(R.id.btn_loging) void loginUser(){
+    @OnClick(R.id.btn_login) void loginUser(){
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers).build(), APP_REQUEST_CODE);
