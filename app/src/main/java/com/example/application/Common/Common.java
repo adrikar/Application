@@ -21,6 +21,8 @@ public class Common {
     public static final String KEY_ENABLE_BUTTON_NEXT = "ENABLE_BUTTON_NEXT";
     public static final String KEY_SALON_STORE = "SALON_SAVE";
     public static final String KEY_BARBER_LOAD_DONE = "BARBER_LOAD_DONE" ;
+    public static final Object DISABLE_TAG = "DISABLE" ;
+    public static final String KEY_TIME_SLOT = "TIME_SLOT" ;
     public static String IS_LOGIN = "IsLogin";
     public static User currentUser;
     public static final int TIME_SLOT_TOTAL = 6;
