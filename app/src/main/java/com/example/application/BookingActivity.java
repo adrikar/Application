@@ -124,7 +124,7 @@ public class BookingActivity extends AppCompatActivity {
             int step = intent.getIntExtra(Common.KEY_STEP,0);
             if (step ==1)
                 Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
-            else if(step ==2)
+            else if(step == 2)
                 Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             btn_next_step.setEnabled(true);
             setColorButton();
@@ -168,7 +168,7 @@ public class BookingActivity extends AppCompatActivity {
                     btn_previous_step.setEnabled(false);
                 else
                     btn_previous_step.setEnabled(true);
-
+                btn_next_step.setEnabled(false);
                 setColorButton();
             }
 

@@ -18,9 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import io.paperdb.Paper;
 
 public class Common {
-    public static final String KEY_ENABLE_BUTTON_NEXT = "ENABLE_BUTTON_NEXT";
-    public static final String KEY_SALON_STORE = "SALON_SAVE";
-    public static final String KEY_BARBER_LOAD_DONE = "BARBER_LOAD_DONE" ;
+    public static final java.lang.String KEY_ENABLE_BUTTON_NEXT = "ENABLE_BUTTON_NEXT";
+    public static final java.lang.String KEY_SALON_STORE = "SALON_SAVE";
+    public static final java.lang.String KEY_BARBER_LOAD_DONE = "BARBER_LOAD_DONE" ;
+    public static final java.lang.String KEY_BARBER_SELECTED ="KEY_BARBER_SELECTED" ;
+    public static final java.lang.String KEY_STEP ="KEY_STEP" ;
     public static String IS_LOGIN = "IsLogin";
     public static User currentUser;
     public static final int TIME_SLOT_TOTAL = 6;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
@@ -15,20 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_salon_name"
-            android:text="Salon #1"
+            android:text="Restaurante"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:fontFamily="@font/belleros"
+
             android:gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_salon_address"
-            android:text="Direccion del salon #1"
+            android:text="Direccion "
             android:textSize="16sp"
             android:textStyle="italic"
-            android:fontFamily="@font/belleros"
+
             android:gravity="center_horizontal"/>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

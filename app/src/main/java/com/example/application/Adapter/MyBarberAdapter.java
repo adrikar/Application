@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.application.Common.*;
+import com.example.application.Interface.*;
 import com.example.application.R;
 import com.example.application.model.Barber;
 
@@ -42,6 +44,25 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
         myViewHolder.txt_barber_name.setText(barberList.get(i).getName());
         myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating());
         if(!cardViewList.contains(myViewHolder.card_barber))
+            cardViewList.add(myViewHolder.card_barber);
+
+        myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
+            @java.lang.Override
+            public void onItemSelectedListener(View view, int pos) {
+                for(CardView cardView :cardViewList)
+                {
+                    cardView.setCardBackgroundColor(context.getResources()
+                            .getColor(android.R.color.white));
+                }
+                myViewHolder.card_barber.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+
+                Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
+                intent.putExtra(Common.KEY_BARBER_SELECTED, barberList.get(pos));
+                intent.putExtra(Common.KEY_STEP, 2);
+                localBroadcastManager.sendBroadcast(intent);
+
+            }
+        });
 
     }
 
@@ -53,11 +74,25 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txt_barber_name;
         RatingBar ratingBar;
+        CardView card_barber;
+        IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
+
+        public void setiRecyclerItemSelectedListener(IRecyclerItemSelectedListener iRecyclerItemSelectedListener) {
+            this.iRecyclerItemSelectedListener = iRecyclerItemSelectedListener;
+        }
+
+
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            card_barber=(CardView)itemView.findViewById(R.id.card_barber);
             txt_barber_name = (TextView)itemView.findViewById(R.id.txt_barber_name);
             ratingBar = (RatingBar)itemView.findViewById(R.id.rtb_baber);
+            itemView.setOnCLickListener(this);
+        }
+        @Override
+        public void onCLick(View view){
+            iRecyclerItemSelectedListener.onItemSelectedListener(view,getAdapterPosition());
         }
     }
 }
