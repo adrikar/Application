@@ -23,7 +23,7 @@
         app:sv_doneStepLineColor="@color/colorAccent"
         app:sv_doneTextColor="@android:color/white"
         app:sv_doneStepMarkColor="@android:color/white"
-        app:sv_typeface="@font/bellerose"
+
         />
 
     <android.support.v4.view.ViewPager
@@ -47,7 +47,7 @@
             android:id="@+id/btn_previous_step"
             android:text="Previus"
             android:enabled="false"
-            android:fontFamily="@font/bellerose"
+
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/txt_skip"
             android:background="@color/colorButton"
@@ -60,8 +60,9 @@
 
         <Button
             android:id="@+id/btn_next_step"
+            android:enabled="false"
             android:text="Next"
-            android:fontFamily="@font/bellerose"
+
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/txt_skip"
             android:background="@color/colorButton"

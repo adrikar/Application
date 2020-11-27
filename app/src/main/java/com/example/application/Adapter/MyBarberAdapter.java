@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application.R;
@@ -18,10 +19,14 @@ import java.util.List;
 public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyViewHolder> {
     Context context;
     List<Barber>barberList;
+    List<CardView> cardViewList;
+    LocalBroadcastManager localBroadcastManager;
 
     public MyBarberAdapter(Context context, List<Barber> barberList) {
         this.context = context;
         this.barberList = barberList;
+        cardViewList = new ArrayList<>();
+        localBroadcastManager =LocalBroadcastManager.getInstance(context);
     }
 
     @NonNull
@@ -35,7 +40,9 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.txt_barber_name.setText(barberList.get(i).getName());
-        myViewHolder.ratingBar.setRating(float)barberList.get(i).getRating();
+        myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating());
+        if(!cardViewList.contains(myViewHolder.card_barber))
+
     }
 
     @Override

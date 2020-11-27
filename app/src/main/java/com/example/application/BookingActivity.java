@@ -65,9 +65,20 @@ public class BookingActivity extends AppCompatActivity {
                 if(Common.currentSalon != null){
                     loadBarberBySalon(Common.currentSalon.getSalonId());
                 }
-                viewPager.setCurrentItem(Common.step);
             }
+            else if(Common.step == 2)
+            {
+                if(Common.currentBarber !=null)
+                    loadTimeSlotOfBarber(Common.currentBarber.getBarberId());
+            }
+                viewPager.setCurrentItem(Common.step);
+
         }
+    }
+
+    private void loadTimeSlotOfBarber(String barberId){
+        Intent intent = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
+        localBroadcastManager.sendBroadcast(intent);
     }
 
     private void loadBarberBySalon(String salonId) {
@@ -108,13 +119,16 @@ public class BookingActivity extends AppCompatActivity {
         }
     }
 
-    private BroadcastReceiver buttonNextReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
+    private BroadcastReceiver buttonNextReceiver = (context,intent) -> {
+
+            int step = intent.getIntExtra(Common.KEY_STEP,0);
+            if (step ==1)
+                Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
+            else if(step ==2)
+                Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             btn_next_step.setEnabled(true);
             setColorButton();
-        }
+
     };
 
     @Override
