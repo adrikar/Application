@@ -1,5 +1,8 @@
 package com.example.application.Fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.application.Common.Common;
 import com.example.application.R;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +42,20 @@ public class BookingStep4Fragment extends Fragment {
     @BindView(R.id.txt_rest_website)
     TextView txt_rest_website;
 
+    BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setData();
+        }
+    };
+
+    private void setData() {
+        txt_booking_table_text.setText(Common.currentBarber.getName());
+        txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
+        .append(" at ")
+        .append(simpleDateFormat.format(Common.currentDate.getTime)));
+    }
+
     static BookingStep4Fragment instance;
     public static BookingStep4Fragment getInstance(){
         if (instance == null)
@@ -51,7 +69,15 @@ public class BookingStep4Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(confirmBookingReceiver, new Intent(Common.KEY_CONFIRM_BOOKING));
+    }
+
+    @Override
+    public void onDestroy() {
+        localBroadcastManager.unregisterReceiver(confirmBookingReceiver);
+        super.onDestroy();
     }
 
     @Nullable

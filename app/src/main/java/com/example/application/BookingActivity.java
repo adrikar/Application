@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 
+import com.example.application.Adapter.LookbookAdapter;
 import com.example.application.Adapter.MyViewPagerAdapter;
 import com.example.application.Common.Common;
 import com.example.application.Common.NonSwipeViewPager;
@@ -71,12 +72,21 @@ public class BookingActivity extends AppCompatActivity {
                 if(Common.currentBarber !=null)
                     loadTimeSlotOfBarber(Common.currentBarber.getBarberId());
             }
+            else if(Common.step == 2)
+            {
+                if(Common.currentTimeSlot != -1)
+                    confirmBooking();
+            }
                 viewPager.setCurrentItem(Common.step);
 
         }
     }
 
-    private void loadTimeSlotOfBarber(String barberId){
+    private void confirmBooking() {
+        Intent intent = new Intent(Common.KEY_CONFIRM_BOOKING);
+        localBroadcastManager.sendBroadcast(intent);
+     }
+  private void loadTimeSlotOfBarber(String barberId){
         Intent intent = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
         localBroadcastManager.sendBroadcast(intent);
     }
@@ -126,6 +136,9 @@ public class BookingActivity extends AppCompatActivity {
                 Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
             else if(step == 2)
                 Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
+            else if(step == 3)
+                Common.currentTimeSlot = intent.getIntExtra(Common.KEY_TIME_SLOT, -1);
+
             btn_next_step.setEnabled(true);
             setColorButton();
 
