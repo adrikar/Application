@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,7 @@ import com.example.application.Common.*;
 import com.example.application.model.*;
 import com.google.android.gms.stats.*;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.api.*;
 import com.google.firebase.firestore.*;
@@ -61,7 +65,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
     public void onReceive(android.content.Context context, Intent intent) {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DATE, 0);
-        loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
+        loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
                 simpleDateFormat.format(date.getTime()));
     }
 };
@@ -94,7 +98,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
                                 .collection("Barber")
                                 .document(Common.currentBarber.getBarberId())
                                 .collection(bookDate);
-                        date.get()addOnCompleteLisener(new OnCompleteListener<QuerySnapshot>(){
+                        date.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>(){
                             @Override
                             public  void onComplete(@NonNull Task<QuerySnapshot>task){
                                 if(task.isSuccessful()){
@@ -183,7 +187,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
             public void onDateSelected(java.util.Calendar date, int position) {
                 if(Common.currentDate.getTimeInMillis() !=date.getTimeInMillis()){
                     Common.currentDate = date;
-                    loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
+                    loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
                             simpleDateFormat.format(date.getTime()));
 
                 }
