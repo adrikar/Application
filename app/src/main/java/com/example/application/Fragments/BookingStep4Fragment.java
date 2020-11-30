@@ -53,7 +53,7 @@ public class BookingStep4Fragment extends Fragment {
     };
 
     private void setData() {
-        txt_booking_table_text.setText(Common.currentBarber.getName());
+        txt_booking_barber_text.setText(Common.currentBarber.getName());
         txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
         .append(" at ")
         .append(simpleDateFormat.format(Common.currentDate.getTime())));
