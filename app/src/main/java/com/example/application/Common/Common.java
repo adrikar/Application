@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import io.paperdb.Paper;
@@ -38,8 +39,8 @@ public class Common {
     public static int step = 0;
     public static String city ="";
     public static Barber currentBarber;
-    public static int currentTimeSlot;
-    public static Date currentDate;
+    public static int currentTimeSlot = -1;
+    public static Calendar currentDate = Calendar.getInstance();
 
     public static java.lang.String convertTimeSlotToString(int slot) {
         switch(slot)

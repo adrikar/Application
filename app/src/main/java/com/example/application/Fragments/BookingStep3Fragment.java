@@ -1,6 +1,7 @@
 package com.example.application.Fragments;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -41,7 +42,9 @@ public class BookingStep3Fragment extends Fragment {
 
     Unbinder unbinder;
     LocalBroadcastManager localBroadcastManager;
-    Calendar selected_date;
+
+
+
     @BindView(R.id.recycler_time_slot)
     RecyclerView recycler_time_slot;
     @BindView(R.id.calendarView)
@@ -80,8 +83,7 @@ public class BookingStep3Fragment extends Fragment {
         localBroadcastManager.registerReceiver(displayTimeSlot, new IntentFilter(Common.KEY_DISPLAY_TIME_SLOT));
         simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
         dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
-        selected_date= Calendar.getInstance();
-        selected_date.add(Calendar.DATE,0);
+
     }
     @Override
     public void onDestroy(){
@@ -122,8 +124,8 @@ public class BookingStep3Fragment extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @java.lang.Override
             public void onDateSelected(java.util.Calendar date, int position) {
-                if(selected_date.getTimeInMillis() !=date.getTimeInMillis()){
-                    selected_date = date;
+                if(Common.currentDate.getTimeInMillis() !=date.getTimeInMillis()){
+                    Common.currentDate = date;
                     loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
                             simpleDateFormat.format(date.getTime()));
 

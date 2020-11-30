@@ -38,6 +38,8 @@ public class BookingStep4Fragment extends Fragment {
     TextView txt_booking_time_text;
     @BindView(R.id.txt_rest_address)
     TextView txt_rest_address;
+    @BindView(R.id.txt_lugar_name)
+    TextView txt_lugar_name;
     @BindView(R.id.txt_rest_open_hours)
     TextView txt_rest_open_hours;
     @BindView(R.id.txt_rest_phone)
@@ -57,6 +59,11 @@ public class BookingStep4Fragment extends Fragment {
         txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
         .append(" at ")
         .append(simpleDateFormat.format(Common.currentDate.getTime())));
+
+        txt_rest_address.setText(Common.currentSalon.getAddress());
+        txt_rest_website.setText(Common.currentSalon.getWebsite());
+        txt_lugar_name.setText(Common.currentSalon.getName());
+        txt_rest_open_hours.setText(Common.currentSalon.getOpenHours());
     }
 
     static BookingStep4Fragment instance;
