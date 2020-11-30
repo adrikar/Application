@@ -56,6 +56,10 @@ public class BookingActivity extends AppCompatActivity {
         if(Common.step == 3 || Common.step > 0){}
         Common.step--;
         viewPager.setCurrentItem(Common.step);
+        if(Common.step < 3){
+            btn_next_step.setEnabled(true);
+            setColorButton();
+        }
     }
 
     @OnClick(R.id.btn_next_step)
@@ -128,20 +132,23 @@ public class BookingActivity extends AppCompatActivity {
             });
         }
     }
-
-    private BroadcastReceiver buttonNextReceiver = (context,intent) -> {
+    private BroadcastReceiver buttonNextReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             int step = intent.getIntExtra(Common.KEY_STEP,0);
             if (step ==1)
                 Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
             else if(step == 2)
                 Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             else if(step == 3)
-                Common.currentTimeSlot = intent.getIntExtra(Common.KEY_TIME_SLOT, -1);
+                Common.currentTimeSlot = intent.getIntExtra((String) Common.KEY_TIME_SLOT, -1);
 
             btn_next_step.setEnabled(true);
             setColorButton();
-
+        }
     };
+
+
 
     @Override
     protected void onDestroy(){

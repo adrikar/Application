@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +72,8 @@ public class BookingStep4Fragment extends Fragment {
                 .append(simpleDateFormat.format(Common.currentDate.getTime())).toString());
         bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
 
+
+
         DocumentReference bookingDate =  FirebaseFirestore.getInstance()
                 .collection("AllSalon")
                 .document(Common.city)
@@ -82,12 +85,11 @@ public class BookingStep4Fragment extends Fragment {
                 .document(String.valueOf(Common.currentTimeSlot));
 
         bookingDate.set(bookingInformation)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        getActivity().finish();
-                        Toast.makeText(getContext(),"Succes!", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnSuccessListener(aVoid -> {
+
+                    resetStaticData();
+                    getActivity().finish();
+                    Toast.makeText(getContext(),"Succes!", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -95,6 +97,14 @@ public class BookingStep4Fragment extends Fragment {
 
             }
         });
+    }
+
+    private void resetStaticData() {
+        Common.step = 0;
+        Common.currentTimeSlot = -1;
+        Common.currentSalon = null;
+        Common.currentBarber = null;
+        Common.currentDate.add(Calendar.DATE, 0);
     }
 
     BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
@@ -112,7 +122,7 @@ public class BookingStep4Fragment extends Fragment {
 
         txt_salon_address.setText(Common.currentSalon.getAddress());
         txt_salon_website.setText(Common.currentSalon.getWebsite());
-        txt_lugar_name.setText(Common.currentSalon.getName());
+        txt_salon_name.setText(Common.currentSalon.getName());
         txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
     }
 

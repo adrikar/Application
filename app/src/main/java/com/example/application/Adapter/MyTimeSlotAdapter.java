@@ -16,7 +16,6 @@ import com.example.application.Common.Common;
 import com.example.application.Interface.IRecyclerItemSelectedListener;
 import com.example.application.R;
 import com.example.application.model.TimeSlot;
-import com.google.api.Context;
 
 import java.util.ArrayList;
 import java.util.List;
