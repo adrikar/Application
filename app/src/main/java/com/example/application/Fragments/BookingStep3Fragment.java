@@ -198,19 +198,19 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
             }
         });
     }
-   @Override
+
    public void onTimeSlotLoadSuccess(List<TimeSlot> timeSlotList){
        MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext(), timeSlotList);
        recycler_time_slot.setAdapter(adapter);
 
        dialog.dismiss();
     }
-    @Override
+
     public void onTimeSlotLoadFailed(java.lang.String message){
         Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
         dialog.dismiss();
     }
-    @Override
+
     public void onTimeSlotLoadEmpty(){
         MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext());
         recycler_time_slot.setAdapter(adapter);
