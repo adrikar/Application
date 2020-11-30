@@ -16,15 +16,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.application.Adapter.MyBarberAdapter;
+import com.example.application.Adapter.MyTableAdapter;
 import com.example.application.Common.Common;
 import com.example.application.Common.SpacesItemDecoration;
 import com.example.application.R;
-import com.example.application.model.Barber;
+import com.example.application.model.Table;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -33,16 +32,16 @@ public class BookingStep2Fragment extends Fragment {
     Unbinder unbinder;
     LocalBroadcastManager localBroadcastManager;
 
-   // @BindView(R.id.recycler_barber)
-    RecyclerView recycler_barber;
+   // @BindView(R.id.recycler_table)
+    RecyclerView recycler_table;
 
-    private BroadcastReceiver barberDoneReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver tableDoneReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ArrayList<Barber>barberArrayList = intent.getParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE);
+            ArrayList<Table> tableArrayList = intent.getParcelableArrayListExtra(Common.KEY_TABLE_LOAD_DONE);
 
-            MyBarberAdapter adapter = new MyBarberAdapter(getContext(), barberArrayList);
-            recycler_barber.setAdapter(adapter);
+            MyTableAdapter adapter = new MyTableAdapter(getContext(), tableArrayList);
+            recycler_table.setAdapter(adapter);
         }
     };
 
@@ -58,12 +57,12 @@ public class BookingStep2Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(barberDoneReceiver, new IntentFilter(Common.KEY_BARBER_LOAD_DONE));
+        localBroadcastManager.registerReceiver(tableDoneReceiver, new IntentFilter(Common.KEY_TABLE_LOAD_DONE));
     }
 
     @Override
     public void onDestroy() {
-        localBroadcastManager.unregisterReceiver(barberDoneReceiver);
+        localBroadcastManager.unregisterReceiver(tableDoneReceiver);
         super.onDestroy();
     }
 
@@ -81,8 +80,8 @@ public class BookingStep2Fragment extends Fragment {
     }
 
     private void initView() {
-        recycler_barber.setHasFixedSize(true);
-        recycler_barber.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recycler_barber.addItemDecoration(new SpacesItemDecoration(4));
+        recycler_table.setHasFixedSize(true);
+        recycler_table.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recycler_table.addItemDecoration(new SpacesItemDecoration(4));
     }
 }

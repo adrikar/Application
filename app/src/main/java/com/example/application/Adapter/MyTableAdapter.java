@@ -16,23 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.application.Common.*;
 import com.example.application.Interface.*;
 import com.example.application.R;
-import com.example.application.model.Barber;
+import com.example.application.model.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.google.firebase.firestore.core.*;
-
-public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyViewHolder> {
+public class MyTableAdapter extends RecyclerView.Adapter<MyTableAdapter.MyViewHolder> {
     Context context;
-    List<Barber>barberList;
+    List<Table>tableList;
     List<CardView> cardViewList;
     LocalBroadcastManager localBroadcastManager;
 
-    public MyBarberAdapter(Context context, List<Barber> barberList) {
+    public MyTableAdapter(Context context, List<Table> tableList) {
         this.context = context;
-        this.barberList = barberList;
+        this.tableList = tableList;
         cardViewList = new ArrayList<>();
         localBroadcastManager =LocalBroadcastManager.getInstance(context);
     }
@@ -41,16 +38,16 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.layout_barber, viewGroup,false);
-        return new MyBarberAdapter.MyViewHolder(itemView);
+                .inflate(R.layout.layout_table, viewGroup,false);
+        return new MyTableAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.txt_barber_name.setText(barberList.get(i).getName());
-        myViewHolder.ratingBar.setRating((float)barberList.get(i).getRating());
-        if(!cardViewList.contains(myViewHolder.card_barber))
-            cardViewList.add(myViewHolder.card_barber);
+        myViewHolder.txt_table_name.setText(tableList.get(i).getName());
+        myViewHolder.ratingBar.setRating((float)tableList.get(i).getRating());
+        if(!cardViewList.contains(myViewHolder.card_table))
+            cardViewList.add(myViewHolder.card_table);
 
         myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
             @java.lang.Override
@@ -60,10 +57,10 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
                     cardView.setCardBackgroundColor(context.getResources()
                             .getColor(android.R.color.white));
                 }
-                myViewHolder.card_barber.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+                myViewHolder.card_table.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_dark));
 
                 Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_BARBER_SELECTED, barberList.get(pos));
+                intent.putExtra(Common.KEY_TABLE_SELECTED, tableList.get(pos));
                 intent.putExtra(Common.KEY_STEP, 2);
                 localBroadcastManager.sendBroadcast(intent);
 
@@ -74,13 +71,13 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return barberList.size();
+        return tableList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_barber_name;
+        TextView txt_table_name;
         RatingBar ratingBar;
-        CardView card_barber;
+        CardView card_table;
         IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
 
         public void setiRecyclerItemSelectedListener(IRecyclerItemSelectedListener iRecyclerItemSelectedListener) {
@@ -91,9 +88,9 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            card_barber=(CardView)itemView.findViewById(R.id.card_barber);
-            txt_barber_name = (TextView)itemView.findViewById(R.id.txt_barber_name);
-            ratingBar = (RatingBar)itemView.findViewById(R.id.rtb_barber);
+            card_table=(CardView)itemView.findViewById(R.id.card_table);
+            txt_table_name = (TextView)itemView.findViewById(R.id.txt_table_name);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.rtb_table);
             itemView.setOnClickListener(this::onCLick);
         }
 

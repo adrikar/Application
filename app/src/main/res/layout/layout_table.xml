@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     app:cardCornerRadius="4dp"
-    android:id="@+id/card_barber"
+    android:id="@+id/card_table"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,7 +22,7 @@
             app:srcCompat="@drawable/ic_baseline_account_box_24" />
 
         <TextView
-            android:id="@+id/txt_barber_name"
+            android:id="@+id/txt_table_name"
             android:text="Nombre "
             android:textSize="20sp"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <RatingBar
-            android:id="@+id/rtb_barber"
+            android:id="@+id/rtb_table"
             android:max="5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

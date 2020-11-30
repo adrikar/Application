@@ -20,8 +20,6 @@ import com.example.application.Common.Common;
 import com.example.application.R;
 import com.example.application.model.BookingInformation;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -41,8 +39,8 @@ public class BookingStep4Fragment extends Fragment {
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
 
-    @BindView(R.id.txt_booking_barber_text)
-    TextView txt_booking_barber_text;
+    @BindView(R.id.txt_booking_table_text)
+    TextView txt_booking_table_text;
     @BindView(R.id.txt_booking_time_text)
     TextView txt_booking_time_text;
     @BindView(R.id.txt_rest_name)
@@ -60,8 +58,8 @@ public class BookingStep4Fragment extends Fragment {
             void confirmBooking(){
         BookingInformation bookingInformation = new BookingInformation();
 
-        bookingInformation.setBarberId(Common.currentBarber.getBarberId());
-        bookingInformation.setBarberName(Common.currentBarber.getName());
+        bookingInformation.setTableId(Common.currentTable.getTableId());
+        bookingInformation.setTableName(Common.currentTable.getName());
         bookingInformation.setCustomerName(Common.currentUser.getName());
         bookingInformation.setCustomerPhone(Common.currentUser.getPhoneNumber());
         bookingInformation.setRestId(Common.currentRest.getRestId());
@@ -79,8 +77,8 @@ public class BookingStep4Fragment extends Fragment {
                 .document(Common.city)
                 .collection("Branch")
                 .document(Common.currentRest.getRestId())
-                .collection("Barber")
-                .document(Common.currentBarber.getBarberId())
+                .collection("Table")
+                .document(Common.currentTable.getTableId())
                 .collection(Common.simpleDateFormat.format(Common.currentDate.getTime()))
                 .document(String.valueOf(Common.currentTimeSlot));
 
@@ -103,7 +101,7 @@ public class BookingStep4Fragment extends Fragment {
         Common.step = 0;
         Common.currentTimeSlot = -1;
         Common.currentRest = null;
-        Common.currentBarber = null;
+        Common.currentTable = null;
         Common.currentDate.add(Calendar.DATE, 0);
     }
 
@@ -115,7 +113,7 @@ public class BookingStep4Fragment extends Fragment {
     };
 
     private void setData() {
-        txt_booking_barber_text.setText(Common.currentBarber.getName());
+        txt_booking_table_text.setText(Common.currentTable.getName());
         txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
         .append(" at ")
         .append(simpleDateFormat.format(Common.currentDate.getTime())));

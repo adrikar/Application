@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.api.Context;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,11 +24,9 @@ import androidx.recyclerview.widget.*;
 import com.example.application.Adapter.*;
 import com.example.application.Common.*;
 import com.example.application.model.*;
-import com.google.android.gms.stats.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.*;
 import com.google.firebase.firestore.*;
 
 import butterknife.*;
@@ -42,12 +38,8 @@ import dmax.dialog.*;
 import com.example.application.R;
 import com.example.application.Interface.ITimeSlotLoadListener;
 
-
-
-import com.example.application.R;
-
 public class BookingStep3Fragment extends Fragment {
-    DocumentReference barberDoc;
+    DocumentReference tableDoc;
     ITimeSlotLoadListener iTimeSlotLoadListener;
     AlertDialog dialog;
 
@@ -69,25 +61,25 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
     public void onReceive(android.content.Context context, Intent intent) {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DATE, 0);
-        loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
+        loadAvailableTimeSlotOfTable(Common.currentTable.getTableId(),
                 simpleDateFormat.format(date.getTime()));
     }
 };
 
 
 
-    private void loadAvailableTimeSlotOfBarber(String barberId, java.lang.String bookDate){
+    private void loadAvailableTimeSlotOfTable(String tableId, java.lang.String bookDate){
         dialog.show();
 
-        barberDoc= FirebaseFirestore.getInstance()
+        tableDoc= FirebaseFirestore.getInstance()
                 .collection("AllSalon")
                 .document(Common.city)
                 .collection("Branch")
                 .document(Common.currentSalon.getSalonId())
-                .collection("Barber")
-                .document(Common.currentBarber.getBarberId());
+                .collection("Table")
+                .document(Common.currentTable.getTableId());
 
-        barberDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
+        tableDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot>task){
                 if(task.isSuccessful()){
@@ -99,8 +91,8 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
                                 .document(Common.city)
                                 .collection("Branch")
                                 .document(Common.currentSalon.getSalonId())
-                                .collection("Barber")
-                                .document(Common.currentBarber.getBarberId())
+                                .collection("Table")
+                                .document(Common.currentTable.getTableId())
                                 .collection(bookDate);
                         date.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>(){
                             @Override
@@ -191,7 +183,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
             public void onDateSelected(java.util.Calendar date, int position) {
                 if(Common.currentDate.getTimeInMillis() !=date.getTimeInMillis()){
                     Common.currentDate = date;
-                    loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
+                    loadAvailableTimeSlotOfTable(Common.currentTable.getTableId(),
                             simpleDateFormat.format(date.getTime()));
 
                 }

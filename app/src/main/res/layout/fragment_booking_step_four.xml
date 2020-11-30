@@ -70,7 +70,7 @@
                 app:srcCompat="@drawable/ic_baseline_account_box_24" />
 
             <TextView
-                android:id="@+id/txt_booking_barber_text"
+                android:id="@+id/txt_booking_table_text"
                 android:text="Mesa 1"
                 android:textSize="14sp"
                 android:layout_marginLeft="4dp"

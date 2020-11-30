@@ -14,11 +14,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 
-import com.example.application.Adapter.LookbookAdapter;
 import com.example.application.Adapter.MyViewPagerAdapter;
 import com.example.application.Common.Common;
 import com.example.application.Common.NonSwipeViewPager;
-import com.example.application.model.Barber;
+import com.example.application.model.Table;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +39,7 @@ public class BookingActivity extends AppCompatActivity {
 
     LocalBroadcastManager localBroadcastManager;
     AlertDialog dialog;
-    CollectionReference barberRef;
+    CollectionReference tableRef;
 
     @BindView(R.id.step_view)
     StepView stepView;
@@ -68,13 +67,13 @@ public class BookingActivity extends AppCompatActivity {
             Common.step++;
             if(Common.step == 1){
                 if(Common.currentRest != null){
-                    loadBarberByRest(Common.currentRest.getRestId());
+                    loadTableByRest(Common.currentRest.getRestId());
                 }
             }
             else if(Common.step == 2)
             {
-                if(Common.currentBarber !=null)
-                    loadTimeSlotOfBarber(Common.currentBarber.getBarberId());
+                if(Common.currentTable !=null)
+                    loadTimeSlotOfTable(Common.currentTable.getTableId());
             }
             else if(Common.step == 2)
             {
@@ -90,36 +89,36 @@ public class BookingActivity extends AppCompatActivity {
         Intent intent = new Intent(Common.KEY_CONFIRM_BOOKING);
         localBroadcastManager.sendBroadcast(intent);
      }
-  private void loadTimeSlotOfBarber(String barberId){
+  private void loadTimeSlotOfTable(String tableId){
         Intent intent = new Intent(Common.KEY_DISPLAY_TIME_SLOT);
         localBroadcastManager.sendBroadcast(intent);
     }
 
-    private void loadBarberByRest(String restId) {
+    private void loadTableByRest(String restId) {
         dialog.show();
 
         if(!TextUtils.isEmpty(Common.city)){
-            barberRef = FirebaseFirestore.getInstance()
+            tableRef = FirebaseFirestore.getInstance()
                     .collection("AllRest")
                     .document(Common.city)
                     .collection("Branch")
                     .document(restId)
-                    .collection("Barber");
+                    .collection("Table");
 
-            barberRef.get()
+            tableRef.get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            ArrayList<Barber> barbers = new ArrayList<>();
-                            for(QueryDocumentSnapshot barberSnapshot:task.getResult()){
-                                    Barber barber = barberSnapshot.toObject(Barber.class);
-                                    barber.setPassword("");
-                                    barber.setBarberId(barberSnapshot.getId());
+                            ArrayList<Table> tables = new ArrayList<>();
+                            for(QueryDocumentSnapshot tableSnapshot:task.getResult()){
+                                    Table table = tableSnapshot.toObject(Table.class);
+                                    table.setPassword("");
+                                    table.setTableId(tableSnapshot.getId());
 
-                                    barbers.add(barber);
+                                    tables.add(table);
                             }
-                            Intent intent = new Intent(Common.KEY_BARBER_LOAD_DONE);
-                            intent.putParcelableArrayListExtra(Common.KEY_BARBER_LOAD_DONE,barbers);
+                            Intent intent = new Intent(Common.KEY_TABLE_LOAD_DONE);
+                            intent.putParcelableArrayListExtra(Common.KEY_TABLE_LOAD_DONE, tables);
                             localBroadcastManager.sendBroadcast(intent);
 
                             dialog.dismiss();
@@ -139,7 +138,7 @@ public class BookingActivity extends AppCompatActivity {
             if (step ==1)
                 Common.currentRest = intent.getParcelableExtra(Common.KEY_REST_STORE);
             else if(step == 2)
-                Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
+                Common.currentTable = intent.getParcelableExtra(Common.KEY_TABLE_SELECTED);
             else if(step == 3)
                 Common.currentTimeSlot = intent.getIntExtra((String) Common.KEY_TIME_SLOT, -1);
 
@@ -216,7 +215,7 @@ public class BookingActivity extends AppCompatActivity {
     private void setupStepView() {
         List<String>stepList = new ArrayList<>();
         stepList.add("Salon");
-        stepList.add("Barber");
+        stepList.add("Table");
         stepList.add("Time");
         stepList.add("Confirm");
         stepView.setSteps(stepList);

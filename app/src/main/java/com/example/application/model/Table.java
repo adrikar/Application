@@ -3,18 +3,18 @@ package com.example.application.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Barber implements Parcelable {
-    private String name, Username, password, barberId;
+public class Table implements Parcelable {
+    private String name, Username, password, tableId;
     private Long rating;
 
-    public Barber() {
+    public Table() {
     }
 
-    protected Barber(Parcel in) {
+    protected Table(Parcel in) {
         name = in.readString();
         Username = in.readString();
         password = in.readString();
-        barberId = in.readString();
+        tableId = in.readString();
         if (in.readByte() == 0) {
             rating = null;
         } else {
@@ -22,15 +22,15 @@ public class Barber implements Parcelable {
         }
     }
 
-    public static final Creator<Barber> CREATOR = new Creator<Barber>() {
+    public static final Creator<Table> CREATOR = new Creator<Table>() {
         @Override
-        public Barber createFromParcel(Parcel in) {
-            return new Barber(in);
+        public Table createFromParcel(Parcel in) {
+            return new Table(in);
         }
 
         @Override
-        public Barber[] newArray(int size) {
-            return new Barber[size];
+        public Table[] newArray(int size) {
+            return new Table[size];
         }
     };
 
@@ -66,12 +66,12 @@ public class Barber implements Parcelable {
         this.rating = rating;
     }
 
-    public String getBarberId() {
-        return barberId;
+    public String getTableId() {
+        return tableId;
     }
 
-    public void setBarberId(String barberId) {
-        this.barberId = barberId;
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Barber implements Parcelable {
         dest.writeString(name);
         dest.writeString(Username);
         dest.writeString(password);
-        dest.writeString(barberId);
+        dest.writeString(tableId);
         if (rating == null) {
             dest.writeByte((byte) 0);
         } else {
