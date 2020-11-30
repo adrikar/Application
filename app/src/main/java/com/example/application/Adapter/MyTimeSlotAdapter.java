@@ -114,11 +114,16 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            card_time_slot=(CardView)itemView.findViewById(R.id.card_time_slot);
-            txt_time_slot=(TextView)itemView.findViewById(R.id.txt_time_slot);
-            txt_time_slot_description=(TextView)itemView.findViewById(R.id.txt_time_slot_description);
+            card_time_slot = (CardView) itemView.findViewById(R.id.card_time_slot);
+            txt_time_slot = (TextView) itemView.findViewById(R.id.txt_time_slot);
+            txt_time_slot_description = (TextView) itemView.findViewById(R.id.txt_time_slot_description);
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this::onClick);
+
+        }
+
+        public void onClick(View view) {
+            iRecyclerItemSelectedListener.onItemSelectedListener(view, getAdapterPosition());
         }
 
 
