@@ -130,7 +130,6 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private BroadcastReceiver buttonNextReceiver = (context,intent) -> {
-
             int step = intent.getIntExtra(Common.KEY_STEP,0);
             if (step ==1)
                 Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
