@@ -1,18 +1,18 @@
 package com.example.application.model;
 
 public class BookingInformation {
-    private String customerName, customerPhone, time, barberId, barberName,restId,restName,restAddress;
+    private String customerName, customerPhone, time, tableId, tableName,restId,restName,restAddress;
     private Long slot;
 
     public BookingInformation() {
     }
 
-    public BookingInformation(String customerName, String customerPhone, String time, String barberId, String barberName, String restId, String restName, String restAddress, Long slot) {
+    public BookingInformation(String customerName, String customerPhone, String time, String tableId, String tableName, String restId, String restName, String restAddress, Long slot) {
         this.customerName = customerName;
         this.customerPhone = customerPhone;
         this.time = time;
-        this.barberId = barberId;
-        this.barberName = barberName;
+        this.tableId = tableId;
+        this.tableName = tableName;
         this.restId = restId;
         this.restName = restName;
         this.restAddress = restAddress;
@@ -43,20 +43,20 @@ public class BookingInformation {
         this.time = time;
     }
 
-    public String getBarberId() {
-        return barberId;
+    public String getTableId() {
+        return tableId;
     }
 
-    public void setBarberId(String barberId) {
-        this.barberId = barberId;
+    public void setTableId(String barberId) {
+        this.tableId = barberId;
     }
 
-    public String getBarberName() {
-        return barberName;
+    public String getTableName() {
+        return tableName;
     }
 
-    public void setBarberName(String barberName) {
-        this.barberName = barberName;
+    public void setTableName(String barberName) {
+        this.tableName = barberName;
     }
 
     public String getRestId() {
