@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
-    android:id="@+id/card_salon"
+    android:id="@+id/card_rest"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_salon_name"
+            android:id="@+id/txt_rest_name"
             android:text="Restaurante"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_salon_address"
+            android:id="@+id/txt_rest_address"
             android:text="Direccion "
             android:textSize="16sp"
             android:textStyle="italic"

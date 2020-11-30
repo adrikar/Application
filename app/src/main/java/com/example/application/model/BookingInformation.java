@@ -1,21 +1,21 @@
 package com.example.application.model;
 
 public class BookingInformation {
-    private String customerName, customerPhone, time, barberId, barberName,salonId,saloName,salonAddress;
+    private String customerName, customerPhone, time, barberId, barberName,restId,restName,restAddress;
     private Long slot;
 
     public BookingInformation() {
     }
 
-    public BookingInformation(String customerName, String customerPhone, String time, String barberId, String barberName, String salonId, String saloName, String salonAddress, Long slot) {
+    public BookingInformation(String customerName, String customerPhone, String time, String barberId, String barberName, String restId, String restName, String restAddress, Long slot) {
         this.customerName = customerName;
         this.customerPhone = customerPhone;
         this.time = time;
         this.barberId = barberId;
         this.barberName = barberName;
-        this.salonId = salonId;
-        this.saloName = saloName;
-        this.salonAddress = salonAddress;
+        this.restId = restId;
+        this.restName = restName;
+        this.restAddress = restAddress;
         this.slot = slot;
     }
 
@@ -59,28 +59,28 @@ public class BookingInformation {
         this.barberName = barberName;
     }
 
-    public String getSalonId() {
-        return salonId;
+    public String getRestId() {
+        return restId;
     }
 
-    public void setSalonId(String salonId) {
-        this.salonId = salonId;
+    public void setRestId(String salonId) {
+        this.restId = restId;
     }
 
-    public String getSaloName() {
-        return saloName;
+    public String getRestName() {
+        return restName;
     }
 
-    public void setSaloName(String saloName) {
-        this.saloName = saloName;
+    public void setRestName(String restName) {
+        this.restName = restName;
     }
 
-    public String getSalonAddress() {
-        return salonAddress;
+    public String getRestAddress() {
+        return restAddress;
     }
 
-    public void setSalonAddress(String salonAddress) {
-        this.salonAddress = salonAddress;
+    public void setRestAddress(String restAddress) {
+        this.restAddress = restAddress;
     }
 
     public Long getSlot() {

@@ -3,19 +3,19 @@ package com.example.application.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Salon implements Parcelable {
-    private String name, address,website,phone,openHours, salonId;
+public class Rest implements Parcelable {
+    private String name, address,website,phone,openHours, restId;
 
-    public Salon() {
+    public Rest() {
     }
 
-    protected Salon(Parcel in) {
+    protected Rest(Parcel in) {
         name = in.readString();
         address = in.readString();
         website = in.readString();
         phone = in.readString();
         openHours = in.readString();
-        salonId = in.readString();
+        restId = in.readString();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Salon implements Parcelable {
         dest.writeString(website);
         dest.writeString(phone);
         dest.writeString(openHours);
-        dest.writeString(salonId);
+        dest.writeString(restId);
     }
 
     @Override
@@ -33,15 +33,15 @@ public class Salon implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Salon> CREATOR = new Creator<Salon>() {
+    public static final Creator<Rest> CREATOR = new Creator<Rest>() {
         @Override
-        public Salon createFromParcel(Parcel in) {
-            return new Salon(in);
+        public Rest createFromParcel(Parcel in) {
+            return new Rest(in);
         }
 
         @Override
-        public Salon[] newArray(int size) {
-            return new Salon[size];
+        public Rest[] newArray(int size) {
+            return new Rest[size];
         }
     };
 
@@ -85,11 +85,11 @@ public class Salon implements Parcelable {
         this.openHours = openHours;
     }
 
-    public String getSalonId() {
-        return salonId;
+    public String getRestId() {
+        return restId;
     }
 
-    public void setSalonId(String salonId) {
-        this.salonId = salonId;
+    public void setRestId(String restId) {
+        this.restId = restId;
     }
 }

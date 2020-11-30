@@ -15,21 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.application.Common.Common;
 import com.example.application.Interface.IRecyclerItemSelectedListener;
 import com.example.application.R;
-import com.example.application.model.Salon;
+import com.example.application.model.*;
+import com.example.application.model.Rest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHolder> {
+public class MyRestAdapter extends RecyclerView.Adapter<MyRestAdapter.MyViewHolder> {
 
     Context context;
-    List<Salon> salonList;
+    List<Rest> restList;
     List<CardView> cardViewList;
     LocalBroadcastManager localBroadcastManager;
 
-    public MySalonAdapter(Context context, List<Salon> salonList) {
+    public MyRestAdapter(Context context, List<Rest> restList) {
         this.context = context;
-        this.salonList = salonList;
+        this.restList = restList;
         cardViewList = new ArrayList<>();
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
@@ -38,28 +39,28 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.layout_salon, viewGroup,false);
+                .inflate(R.layout.layout_rest, viewGroup,false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-        myViewHolder.txt_salon_name.setText(salonList.get(i).getName());
-        myViewHolder.txt_salon_address.setText(salonList.get(i).getAddress());
-        if(!cardViewList.contains(myViewHolder.card_salon))
-            cardViewList.add(myViewHolder.card_salon);
+        myViewHolder.txt_rest_name.setText(restList.get(i).getName());
+        myViewHolder.txt_rest_address.setText(restList.get(i).getAddress());
+        if(!cardViewList.contains(myViewHolder.card_rest))
+            cardViewList.add(myViewHolder.card_rest);
         myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
             @Override
             public void onItemSelectedListener(View view, int pos) {
                 for (CardView cardView:cardViewList)
                     cardView.setCardBackgroundColor(context.getResources().getColor(android.R.color.white));
 
-                myViewHolder.card_salon.setCardBackgroundColor(context.getResources()
+                myViewHolder.card_rest.setCardBackgroundColor(context.getResources()
                 .getColor(android.R.color.holo_orange_dark));
 
 
                 Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_SALON_STORE, salonList.get(pos));
+                intent.putExtra(Common.KEY_REST_STORE, restList.get(pos));
                 intent.putExtra(Common.KEY_STEP,1);
                 localBroadcastManager.sendBroadcast(intent);
 
@@ -69,12 +70,12 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return salonList.size();
+        return restList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView txt_salon_name, txt_salon_address;
-        CardView card_salon;
+        TextView txt_rest_name, txt_rest_address;
+        CardView card_rest;
 
         IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
 
@@ -84,9 +85,9 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-           card_salon= (CardView)itemView.findViewById(R.id.card_salon);
-            txt_salon_address = (TextView)itemView.findViewById(R.id.txt_salon_address);
-            txt_salon_name = (TextView)itemView.findViewById(R.id.txt_salon_name);
+           card_rest= (CardView)itemView.findViewById(R.id.card_rest);
+            txt_rest_address = (TextView)itemView.findViewById(R.id.txt_rest_address);
+            txt_rest_name = (TextView)itemView.findViewById(R.id.txt_rest_name);
 
             itemView.setOnClickListener(this);
         }

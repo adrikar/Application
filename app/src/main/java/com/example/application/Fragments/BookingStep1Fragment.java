@@ -13,13 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.application.Adapter.MySalonAdapter;
+import com.example.application.Adapter.MyRestAdapter;
 import com.example.application.Common.Common;
 import com.example.application.Common.SpacesItemDecoration;
-import com.example.application.Interface.IAllSalonLoadListener;
+import com.example.application.Interface.IAllRestLoadListener;
 import com.example.application.Interface.IBranchLoadListener;
 import com.example.application.R;
-import com.example.application.model.Salon;
+import com.example.application.model.Rest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -38,18 +38,18 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
 
-public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListener, IBranchLoadListener {
+public class BookingStep1Fragment extends Fragment implements IAllRestLoadListener, IBranchLoadListener {
 
-    CollectionReference allSalonRef;
+    CollectionReference allRestRef;
     CollectionReference branchRef;
 
-    IAllSalonLoadListener iAllSalonLoadListener;
+    IAllSalonLoadListener iAllRestLoadListener;
     IBranchLoadListener iBranchLoadListener;
 
     @BindView(R.id.spinner)
     MaterialSpinner spinner;
-    @BindView(R.id.recycler_salon)
-    RecyclerView recycler_salon;
+    @BindView(R.id.recycler_rest)
+    RecyclerView recycler_rest;
 
     Unbinder unbinder;
     AlertDialog dialog;
@@ -65,8 +65,8 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        allSalonRef = FirebaseFirestore.getInstance().collection("AllSalon");
-        iAllSalonLoadListener = this;
+        allRestRef = FirebaseFirestore.getInstance().collection("AllRest");
+        iAllRestLoadListener = this;
         iBranchLoadListener = this;
 
         dialog = new SpotsDialog.Builder().setContext(getActivity()).setCancelable(false).build();
@@ -82,40 +82,40 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
        unbinder = ButterKnife.bind(this, itemView);
 
        initView();
-       loadAllSalon();
+       loadAllRest();
        
        return itemView;
     }
 
     private void initView() {
-        recycler_salon.setHasFixedSize(true);
-        recycler_salon.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recycler_salon.addItemDecoration(new SpacesItemDecoration(4));
+        recycler_rest.setHasFixedSize(true);
+        recycler_rest.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recycler_rest.addItemDecoration(new SpacesItemDecoration(4));
     }
 
-    private void loadAllSalon() {
-        allSalonRef.get()
+    private void loadAllRest() {
+        allRestRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             List<String> list = new ArrayList<>();
-                            list.add("Please choose City");
+                            list.add("Porfavor escoga ubicacion");
                             for(QueryDocumentSnapshot documentSnapshot:task.getResult())
                                 list.add(documentSnapshot.getId());
-                            iAllSalonLoadListener.onAllSalonLoadSuccess(list);
+                            iAllRestLoadListener.onAllRestLoadSuccess(list);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                iAllSalonLoadListener.onAllSalonLoadFailed(e.getMessage());
+                iAllRestLoadListener.onAllRestLoadFailed(e.getMessage());
             }
         });
     }
 
     @Override
-    public void onAllSalonLoadSuccess(List<String> areaNameList) {
+    public void onAllRestLoadSuccess(List<String> areaNameList) {
         spinner.setItems(areaNameList);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
@@ -124,7 +124,7 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
                     loadBranchOfCity(item.toString());
                 }
                 else {
-                    recycler_salon.setVisibility(View.GONE);
+                    recycler_rest.setVisibility(View.GONE);
                 }
             }
         });
@@ -136,18 +136,18 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
         Common.city = cityName;
 
         branchRef = FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("AllRest")
                 .document(cityName)
                 .collection("Branch");
         branchRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<Salon> list = new ArrayList<>();
+                List<Rest> list = new ArrayList<>();
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
-                        Salon salon = documentSnapshot.toObject(Salon.class);
-                        salon.setSalonId(documentSnapshot.getId());
-                        list.add(salon);
+                        Rest rest = documentSnapshot.toObject(Rest.class);
+                        rest.setRestId(documentSnapshot.getId());
+                        list.add(rest);
                     }
 
                     iBranchLoadListener.onBranchLoadSuccess(list);
@@ -163,15 +163,15 @@ public class BookingStep1Fragment extends Fragment implements IAllSalonLoadListe
     }
 
     @Override
-    public void onAllSalonLoadFailed(String message) {
+    public void onAllRestLoadFailed(String message) {
         Toast.makeText(getActivity(),message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onBranchLoadSuccess(List<Salon> salonList) {
-        MySalonAdapter adapter = new MySalonAdapter(getActivity(), salonList);
-        recycler_salon.setAdapter(adapter);
-        recycler_salon.setVisibility(View.VISIBLE);
+    public void onBranchLoadSuccess(List<Rest> restList) {
+        MyRestAdapter adapter = new MyRestAdapter(getActivity(), restList);
+        recycler_rest.setAdapter(adapter);
+        recycler_rest.setVisibility(View.VISIBLE);
         dialog.dismiss();
     }
 

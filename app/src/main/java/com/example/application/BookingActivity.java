@@ -67,8 +67,8 @@ public class BookingActivity extends AppCompatActivity {
         if (Common.step < 3 || Common.step == 0){
             Common.step++;
             if(Common.step == 1){
-                if(Common.currentSalon != null){
-                    loadBarberBySalon(Common.currentSalon.getSalonId());
+                if(Common.currentRest != null){
+                    loadBarberByRest(Common.currentRest.getRestId());
                 }
             }
             else if(Common.step == 2)
@@ -95,15 +95,15 @@ public class BookingActivity extends AppCompatActivity {
         localBroadcastManager.sendBroadcast(intent);
     }
 
-    private void loadBarberBySalon(String salonId) {
+    private void loadBarberByRest(String restId) {
         dialog.show();
 
         if(!TextUtils.isEmpty(Common.city)){
             barberRef = FirebaseFirestore.getInstance()
-                    .collection("AllSalon")
+                    .collection("AllRest")
                     .document(Common.city)
                     .collection("Branch")
-                    .document(salonId)
+                    .document(restId)
                     .collection("Barber");
 
             barberRef.get()
@@ -137,7 +137,7 @@ public class BookingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             int step = intent.getIntExtra(Common.KEY_STEP,0);
             if (step ==1)
-                Common.currentSalon = intent.getParcelableExtra(Common.KEY_SALON_STORE);
+                Common.currentRest = intent.getParcelableExtra(Common.KEY_REST_STORE);
             else if(step == 2)
                 Common.currentBarber = intent.getParcelableExtra(Common.KEY_BARBER_SELECTED);
             else if(step == 3)

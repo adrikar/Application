@@ -45,16 +45,16 @@ public class BookingStep4Fragment extends Fragment {
     TextView txt_booking_barber_text;
     @BindView(R.id.txt_booking_time_text)
     TextView txt_booking_time_text;
-    @BindView(R.id.txt_salon_name)
-    TextView txt_salon_name;
-    @BindView(R.id.txt_salon_address)
-    TextView txt_salon_address;
-    @BindView(R.id.txt_salon_open_hours)
-    TextView txt_salon_open_hours;
-    @BindView(R.id.txt_salon_phone)
-    TextView txt_salon_phone;
-    @BindView(R.id.txt_salon_website)
-    TextView txt_salon_website;
+    @BindView(R.id.txt_rest_name)
+    TextView txt_rest_name;
+    @BindView(R.id.txt_rest_address)
+    TextView txt_rest_address;
+    @BindView(R.id.txt_rest_open_hours)
+    TextView txt_rest_open_hours;
+    @BindView(R.id.txt_rest_phone)
+    TextView txt_rest_phone;
+    @BindView(R.id.txt_rest_website)
+    TextView txt_rest_website;
 
     @OnClick(R.id.btn_confirm)
             void confirmBooking(){
@@ -64,9 +64,9 @@ public class BookingStep4Fragment extends Fragment {
         bookingInformation.setBarberName(Common.currentBarber.getName());
         bookingInformation.setCustomerName(Common.currentUser.getName());
         bookingInformation.setCustomerPhone(Common.currentUser.getPhoneNumber());
-        bookingInformation.setSalonId(Common.currentSalon.getSalonId());
-        bookingInformation.setSaloName(Common.currentSalon.getName());
-        bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
+        bookingInformation.setRestId(Common.currentRest.getRestId());
+        bookingInformation.setRestName(Common.currentRest.getName());
+        bookingInformation.setRestAddress(Common.currentRest.getAddress());
         bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
                 .append(" at ")
                 .append(simpleDateFormat.format(Common.currentDate.getTime())).toString());
@@ -75,10 +75,10 @@ public class BookingStep4Fragment extends Fragment {
 
 
         DocumentReference bookingDate =  FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("AllRest")
                 .document(Common.city)
                 .collection("Branch")
-                .document(Common.currentSalon.getSalonId())
+                .document(Common.currentRest.getRestId())
                 .collection("Barber")
                 .document(Common.currentBarber.getBarberId())
                 .collection(Common.simpleDateFormat.format(Common.currentDate.getTime()))
@@ -89,7 +89,7 @@ public class BookingStep4Fragment extends Fragment {
 
                     resetStaticData();
                     getActivity().finish();
-                    Toast.makeText(getContext(),"Succes!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Success!", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -102,7 +102,7 @@ public class BookingStep4Fragment extends Fragment {
     private void resetStaticData() {
         Common.step = 0;
         Common.currentTimeSlot = -1;
-        Common.currentSalon = null;
+        Common.currentRest = null;
         Common.currentBarber = null;
         Common.currentDate.add(Calendar.DATE, 0);
     }
@@ -120,10 +120,10 @@ public class BookingStep4Fragment extends Fragment {
         .append(" at ")
         .append(simpleDateFormat.format(Common.currentDate.getTime())));
 
-        txt_salon_address.setText(Common.currentSalon.getAddress());
-        txt_salon_website.setText(Common.currentSalon.getWebsite());
-        txt_salon_name.setText(Common.currentSalon.getName());
-        txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
+        txt_rest_address.setText(Common.currentRest.getAddress());
+        txt_rest_website.setText(Common.currentRest.getWebsite());
+        txt_rest_name.setText(Common.currentRest.getName());
+        txt_rest_open_hours.setText(Common.currentRest.getOpenHours());
     }
 
     static BookingStep4Fragment instance;
