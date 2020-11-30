@@ -39,8 +39,8 @@ public class BookingStep4Fragment extends Fragment {
     TextView txt_booking_barber_text;
     @BindView(R.id.txt_booking_time_text)
     TextView txt_booking_time_text;
-    @BindView(R.id.txt_lugar_name)
-    TextView txt_lugar_name;
+    @BindView(R.id.txt_salon_name)
+    TextView txt_salon_name;
     @BindView(R.id.txt_salon_address)
     TextView txt_salon_address;
     @BindView(R.id.txt_salon_open_hours)

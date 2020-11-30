@@ -18,13 +18,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.*;
 
 import com.example.application.Common.*;
-import com.example.application.model.Barber;
+import com.example.application.model.*;
 import com.google.android.gms.stats.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.api.*;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.*;
 
 import butterknife.*;
 import butterknife.BindView;
@@ -38,8 +37,6 @@ import com.example.application.Interface.ITimeSlotLoadListener;
 
 
 import com.example.application.R;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BookingStep3Fragment extends Fragment {
     DocumentReference barberDoc;
@@ -57,6 +54,8 @@ public class BookingStep3Fragment extends Fragment {
     HorizontalCalendarView calendarView;
     SimpleDateFormat simpleDateFormat;
 
+
+
 BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
     @Override
     public void onReceive(android.content.Context context, Intent intent) {
@@ -69,9 +68,59 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
 
 
 
-    private void loadAvailableTimeSlotofBarber(String barberID, String bookDate){
+    private void loadAvailableTimeSlotOfBarber(String barberId, java.lang.String bookDate){
         dialog.show();
 
+        barberDoc= FirebaseFirestore.getInstance()
+                .collection("AllSalon")
+                .document(Common.city)
+                .collection("Branch")
+                .document(Common.currentSalon.getSalonId())
+                .collection("Barber")
+                .document(Common.currentBarber.getBarberId());
+
+        barberDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot>task){
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if(documentSnapshot.exists())
+                    {
+                        CollectionReference date =FirebaseFirestore.getInstance()
+                                .collection("AllSalon")
+                                .document(Common.city)
+                                .collection("Branch")
+                                .document(Common.currentSalon.getSalonId())
+                                .collection("Barber")
+                                .document(Common.currentBarber.getBarberId())
+                                .collection(bookDate);
+                        date.get()addOnCompleteLisener(new OnCompleteListener<QuerySnapshot>(){
+                            @Override
+                            public  void onComplete(@NonNull Task<QuerySnapshot>task){
+                                if(task.isSuccessful()){
+                                    QuerySnapshot querySnapshot=task.getResult();
+                                    if(querySnapshot.isEmpty())
+                                        iTimeSlotLoadListener.onTimeSlotLoadEmpty();
+                                    else{
+                                        List<TimeSlot> timeSlots = new ArrayList<>();
+                                        for(QueryDocumentSnapshot document:task.getResult())
+                                            timeSlots.add(document.toObject(TimeSlot.class));
+                                        iTimeSlotLoadListener.onTimeSlotLoadSuccess(timeSlots);
+                                    }
+                                }
+                            }
+                    }).addOnFailureListener(new OnFailureListener(){
+                        @Override
+                        public void onFailure(@NonNull Exception e){
+                            iTimeSlotLoadListener.onTimeSlotLoadFailed(e.getMessage());
+                        }
+                    });
+                    }
+
+                }
+            }
+
+        });
     }
 
 
@@ -85,7 +134,6 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         iTimeSlotLoadListener = (ITimeSlotLoadListener) this;
 
         localBroadcastManager= LocalBroadcastManager.getInstance(getContext());

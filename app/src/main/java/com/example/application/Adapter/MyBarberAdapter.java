@@ -21,6 +21,9 @@ import com.example.application.model.Barber;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import com.google.firebase.firestore.core.*;
+
 public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyViewHolder> {
     Context context;
     List<Barber>barberList;
