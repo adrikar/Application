@@ -84,7 +84,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            card_salon= (CardView)itemView.findViewById(R.id.card_salon);
+           card_salon= (CardView)itemView.findViewById(R.id.card_salon);
             txt_salon_address = (TextView)itemView.findViewById(R.id.txt_salon_address);
             txt_salon_name = (TextView)itemView.findViewById(R.id.txt_salon_name);
 
