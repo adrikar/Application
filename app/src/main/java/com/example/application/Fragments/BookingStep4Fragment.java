@@ -32,20 +32,20 @@ public class BookingStep4Fragment extends Fragment {
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
 
-    @BindView(R.id.txt_booking_table_text)
-    TextView txt_booking_table_text;
+    @BindView(R.id.txt_booking_barber_text)
+    TextView txt_booking_barber_text;
     @BindView(R.id.txt_booking_time_text)
     TextView txt_booking_time_text;
-    @BindView(R.id.txt_rest_address)
-    TextView txt_rest_address;
     @BindView(R.id.txt_lugar_name)
     TextView txt_lugar_name;
-    @BindView(R.id.txt_rest_open_hours)
-    TextView txt_rest_open_hours;
-    @BindView(R.id.txt_rest_phone)
-    TextView txt_rest_phone;
-    @BindView(R.id.txt_rest_website)
-    TextView txt_rest_website;
+    @BindView(R.id.txt_salon_address)
+    TextView txt_salon_address;
+    @BindView(R.id.txt_salon_open_hours)
+    TextView txt_salon_open_hours;
+    @BindView(R.id.txt_salon_phone)
+    TextView txt_salon_phone;
+    @BindView(R.id.txt_salon_website)
+    TextView txt_salon_website;
 
     BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
         @Override
@@ -55,15 +55,15 @@ public class BookingStep4Fragment extends Fragment {
     };
 
     private void setData() {
-        txt_booking_table_text.setText(Common.currentBarber.getName());
+        txt_booking_barber_text.setText(Common.currentBarber.getName());
         txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
         .append(" at ")
         .append(simpleDateFormat.format(Common.currentDate.getTime())));
 
-        txt_rest_address.setText(Common.currentSalon.getAddress());
-        txt_rest_website.setText(Common.currentSalon.getWebsite());
+        txt_salon_address.setText(Common.currentSalon.getAddress());
+        txt_salon_website.setText(Common.currentSalon.getWebsite());
         txt_lugar_name.setText(Common.currentSalon.getName());
-        txt_rest_open_hours.setText(Common.currentSalon.getOpenHours());
+        txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
     }
 
     static BookingStep4Fragment instance;
