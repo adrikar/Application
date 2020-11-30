@@ -39,7 +39,7 @@ public class Common {
     public static final int TIME_SLOT_TOTAL = 6;
     public static Salon currentSalon;
     public static int step = 0;
-    public static String city ="";
+    public static java.lang.String city ="";
     public static Barber currentBarber;
     public static int currentTimeSlot = -1;
     public static Calendar currentDate = Calendar.getInstance();

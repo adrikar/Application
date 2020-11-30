@@ -16,6 +16,7 @@ import com.example.application.Common.Common;
 import com.example.application.Interface.IRecyclerItemSelectedListener;
 import com.example.application.R;
 import com.example.application.model.TimeSlot;
+import com.google.api.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,8 +103,8 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
         return Common.TIME_SLOT_TOTAL;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_time_slot, txt_time_slot_description;
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView txt_time_slot,txt_time_slot_description;
         CardView card_time_slot;
 
         IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
@@ -122,12 +123,9 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
 
         }
 
+        @Override
         public void onClick(View view) {
             iRecyclerItemSelectedListener.onItemSelectedListener(view, getAdapterPosition());
         }
-
-
-
     }
-
 }
