@@ -3,6 +3,7 @@ package com.example.application.Fragments;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.example.application.Common.Common.KEY_CONFIRM_BOOKING;
 
 public class BookingStep4Fragment extends Fragment {
 
@@ -53,7 +56,7 @@ public class BookingStep4Fragment extends Fragment {
         txt_booking_table_text.setText(Common.currentBarber.getName());
         txt_booking_time_text.setText(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
         .append(" at ")
-        .append(simpleDateFormat.format(Common.currentDate.getTime)));
+        .append(simpleDateFormat.format(Common.currentDate.getTime())));
     }
 
     static BookingStep4Fragment instance;
@@ -71,7 +74,7 @@ public class BookingStep4Fragment extends Fragment {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(confirmBookingReceiver, new Intent(Common.KEY_CONFIRM_BOOKING));
+        localBroadcastManager.registerReceiver(confirmBookingReceiver, new IntentFilter(KEY_CONFIRM_BOOKING));
     }
 
     @Override

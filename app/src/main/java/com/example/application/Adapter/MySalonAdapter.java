@@ -92,7 +92,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             iRecyclerItemSelectedListener.onItemSelectedListener(view, getAdapterPosition());
         }
     }

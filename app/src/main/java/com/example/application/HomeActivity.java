@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.*;
 import android.widget.*;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.application.Common.Common;
@@ -22,13 +23,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.*;
 import com.google.android.material.bottomsheet.*;
 import com.google.android.material.textfield.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 
 import butterknife.*;
 import dmax.dialog.SpotsDialog;
 import io.reactivex.annotations.*;
 
-public class HomeActivity extends Context {
+public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
@@ -51,12 +54,9 @@ public class HomeActivity extends Context {
             boolean isLogin = getIntent().getBooleanExtra(Common.IS_LOGIN, false);
             if(isLogin){
                 dialog.show();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                AccountKit.getCurrentAccount(new AccountKitCallback<Account>(){
-                    @Override
-                    public void onSuccess(Account account){
-                        if(account !=null){
-                            DocumentReference currentUser =userRef.document(account.getPhoneNumber().toString());
+                            DocumentReference currentUser =userRef.document(user.getPhoneNumber());
                             currentUser.get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
                                         @Override
@@ -65,7 +65,7 @@ public class HomeActivity extends Context {
 
                                                         DocumentSnapshot userSnapshot = task.getResult();
                                                         if (!userSnapshot.exists()) {
-                                                            showUpdateDialog(account.getPhoneNumber().toString());
+                                                            showUpdateDialog(user.getPhoneNumber());
                                                         }else{
                                                             Common.currentUser = userSnapshot.toObject(User.class);
                                                             bottomNavigationView.setSelectedItemId(R.id.action_home);
@@ -78,15 +78,10 @@ public class HomeActivity extends Context {
                                                 }
                                     });
 
-                        }
-                    }
-                    public void onError(AccountKitError accountKitError){
 
-                        Toast.makeText(HomeActivity.this,""+accountKitError.getErrorType().getMessage(),Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
-        }
+
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -133,7 +128,7 @@ public class HomeActivity extends Context {
               final User user = new User(edt_name.getText().toString(),edt_address.getText().toString(), phoneNumber);
               userRef.document(phoneNumber)
                       .set(user)
-                      .addOnSuccessListener(new OnSuccessListener<Void>(){
+                      .addOnSuccessListener(new OnSuccessListener<Void>() {
                           @Override
                           public void onSuccess(Void aVoid) {
                               bottomSheetDialog.dismiss();
@@ -144,14 +139,18 @@ public class HomeActivity extends Context {
                               bottomNavigationView.setSelectedItemId(R.id.action_home);
                               Toast.makeText(HomeActivity.this, " Gracias", Toast.LENGTH_SHORT).show();
 
-                      }).addOnFailureListener(new OnFailureListener()){
-                          public void OnFailure(@NonNull Exception e){
-                              bottomSheetDialog.dismiss();
-                              Toast.makeText(HomeActivity.this,""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                          }
+                      }).addOnFailureListener(new OnFailureListener() {
+                  @Override
+                  public void onFailure(@androidx.annotation.NonNull Exception e) {
+                      bottomSheetDialog.dismiss();
+                      Toast.makeText(HomeActivity.this,""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                  }
+              });
+
                 }
-                      });
-            }
+
+
         });
     bottomSheetDialog.setContentView(sheetView);
     bottomSheetDialog.dismiss();

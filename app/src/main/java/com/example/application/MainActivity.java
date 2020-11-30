@@ -119,11 +119,6 @@ public class MainActivity extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if(task.isSuccessful()){
 
-                                    Common.updateToken(getBaseContext(), task.getResult().getToken());
-
-                                    Log.d("EDMTToken", task.getResult().getToken());
-
-
                                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                     intent.putExtra(Common.IS_LOGIN, true);
                                     startActivity(intent);
@@ -172,10 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 .getInstanceId()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-
-                        Common.updateToken(getBaseContext(), task.getResult().getToken());
-
-                        Log.d("EDMTToken", task.getResult().getToken());
 
 
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);

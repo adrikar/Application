@@ -1,13 +1,19 @@
 package com.example.application.Fragments;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.*;
 
 import com.example.application.Common.*;
@@ -42,17 +48,17 @@ public class BookingStep3Fragment extends Fragment {
     HorizontalCalendarView calendarView;
     SimpleDateFormat simpleDateFormat;
 
-    GCoreWakefulBroadcastReceiver displayTimeSlot = new GCoreWakefulBroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent){
-            Calendar date = Calendar.getInsatance();
+            Calendar date = Calendar.getInstance();
             date.add(Calendar.DATE, 0);
             loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
                     simpleDateFormat.format(date.getTime()));
         }
 
 
-    };
+
     private void loadAvailableTimeSlotofBarber(String barberID, String date){
         dialog.show();
     }
@@ -79,7 +85,7 @@ public class BookingStep3Fragment extends Fragment {
     }
     @Override
     public void onDestroy(){
-        localBroadcastManager.unregistereReceiver(displayTimeSlot);
+        localBroadcastManager.unregisterReceiver(displayTimeSlot);
         super.onDestroy();
 
     }
@@ -116,7 +122,7 @@ public class BookingStep3Fragment extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @java.lang.Override
             public void onDateSelected(java.util.Calendar date, int position) {
-                if(selected_date.getTimeInMillis() !=date.getTimeMillis()){
+                if(selected_date.getTimeInMillis() !=date.getTimeInMillis()){
                     selected_date = date;
                     loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
                             simpleDateFormat.format(date.getTime()));

@@ -33,7 +33,7 @@ public class BookingStep2Fragment extends Fragment {
     Unbinder unbinder;
     LocalBroadcastManager localBroadcastManager;
 
-    @BindView(R.id.recycler_barber)
+   // @BindView(R.id.recycler_barber)
     RecyclerView recycler_barber;
 
     private BroadcastReceiver barberDoneReceiver = new BroadcastReceiver() {

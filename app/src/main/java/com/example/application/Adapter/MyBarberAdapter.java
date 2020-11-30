@@ -1,6 +1,7 @@
 package com.example.application.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.*;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.application.Common.*;
@@ -16,6 +18,7 @@ import com.example.application.Interface.*;
 import com.example.application.R;
 import com.example.application.model.Barber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyViewHolder> {
@@ -87,10 +90,10 @@ public class MyBarberAdapter extends RecyclerView.Adapter<MyBarberAdapter.MyView
             super(itemView);
             card_barber=(CardView)itemView.findViewById(R.id.card_barber);
             txt_barber_name = (TextView)itemView.findViewById(R.id.txt_barber_name);
-            ratingBar = (RatingBar)itemView.findViewById(R.id.rtb_baber);
-            itemView.setOnCLickListener(this);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.rtb_barber);
+            itemView.setOnClickListener(this::onCLick);
         }
-        @Override
+
         public void onCLick(View view){
             iRecyclerItemSelectedListener.onItemSelectedListener(view,getAdapterPosition());
         }

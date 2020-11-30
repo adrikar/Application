@@ -28,19 +28,15 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
     List<CardView> cardViewList;
     LocalBroadcastManager localBroadcastManager;
 
-    public MyTimeSlotAdapter(Context context){
-        this.context= context;
-        this.timeSlotList= new ArrayList<>();
+
+
+    public MyTimeSlotAdapter(Context context, List<TimeSlot> timeSlotList, List<CardView> cardViewList, LocalBroadcastManager localBroadcastManager) {
+        this.context = context;
+        this.timeSlotList = timeSlotList;
+        this.cardViewList = cardViewList;
         this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
-        cardViewList = new ArrayList<>();
     }
 
-    public MyTimeSlotAdapter(Context context, List<TimeSlot> timeSlotList){
-        this.context = context;
-        this.timeSlotList= timeSlotList;
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(context);
-        cardViewList = new ArrayList<>();
-    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
