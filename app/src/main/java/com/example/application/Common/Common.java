@@ -30,14 +30,15 @@ public class Common {
     public static final java.lang.String KEY_BARBER_SELECTED ="KEY_BARBER_SELECTED" ;
     public static final java.lang.String KEY_STEP ="KEY_STEP" ;
     public static final java.lang.String KEY_DISPLAY_TIME_SLOT = "DISPLAY_TIME_SLOT";
-    public static final String KEY_CONFIRM_BOOKING ="CONFIRM_BOOKING" ;
-    public static final Object KEY_TIME_SLOT = "TIME_SLOT";
-    public static String IS_LOGIN = "IsLogin";
+    public static final java.lang.String KEY_CONFIRM_BOOKING ="CONFIRM_BOOKING" ;
+    public static final java.lang.String KEY_TIME_SLOT = "TIME_SLOT";
+
+    public static java.lang.String IS_LOGIN = "IsLogin";
     public static User currentUser;
     public static final int TIME_SLOT_TOTAL = 6;
     public static Salon currentSalon;
     public static int step = 0;
-    public static String city ="";
+    public static java.lang.String city ="";
     public static Barber currentBarber;
     public static int currentTimeSlot = -1;
     public static Calendar currentDate = Calendar.getInstance();

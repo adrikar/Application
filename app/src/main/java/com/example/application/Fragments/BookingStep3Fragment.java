@@ -8,18 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.api.Context;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.*;
 
+import com.example.application.Adapter.*;
 import com.example.application.Common.*;
 import com.example.application.model.*;
 import com.google.android.gms.stats.*;
@@ -194,4 +196,25 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
             }
         });
     }
+   @Override
+   public void onTimeSlotLoadSuccess(List<TimeSlot> timeSlotList){
+       MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext(),timeSlotList);
+       recycler_time_slot.setAdapter(adapter);
+
+       dialog.dismiss();
+    }
+    @Override
+    public void onTimeSlotLoadFailed(java.lang.String message){
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
+    }
+    @Override
+    public void onTimeSlotLoadEmpty(){
+        MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext());
+        recycler_time_slot.setAdapter(adapter);
+
+        dialog.dismiss();
+    }
+
+
 }
