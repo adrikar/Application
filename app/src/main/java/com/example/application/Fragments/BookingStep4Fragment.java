@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +19,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.example.application.Common.Common;
 import com.example.application.R;
 import com.example.application.model.BookingInformation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +72,39 @@ public class BookingStep4Fragment extends Fragment {
                 .append(simpleDateFormat.format(Common.currentDate.getTime())).toString());
         bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
 
-        DocumentReference bookingDate =
+
+
+        DocumentReference bookingDate =  FirebaseFirestore.getInstance()
+                .collection("AllSalon")
+                .document(Common.city)
+                .collection("Branch")
+                .document(Common.currentSalon.getSalonId())
+                .collection("Barber")
+                .document(Common.currentBarber.getBarberId())
+                .collection(Common.simpleDateFormat.format(Common.currentDate.getTime()))
+                .document(String.valueOf(Common.currentTimeSlot));
+
+        bookingDate.set(bookingInformation)
+                .addOnSuccessListener(aVoid -> {
+
+                    resetStaticData();
+                    getActivity().finish();
+                    Toast.makeText(getContext(),"Succes!", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void resetStaticData() {
+        Common.step = 0;
+        Common.currentTimeSlot = -1;
+        Common.currentSalon = null;
+        Common.currentBarber = null;
+        Common.currentDate.add(Calendar.DATE, 0);
     }
 
     BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
@@ -84,7 +122,7 @@ public class BookingStep4Fragment extends Fragment {
 
         txt_salon_address.setText(Common.currentSalon.getAddress());
         txt_salon_website.setText(Common.currentSalon.getWebsite());
-        txt_lugar_name.setText(Common.currentSalon.getName());
+        txt_salon_name.setText(Common.currentSalon.getName());
         txt_salon_open_hours.setText(Common.currentSalon.getOpenHours());
     }
 

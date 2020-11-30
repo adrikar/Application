@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,10 +31,10 @@ public class Common {
     public static final java.lang.String KEY_BARBER_SELECTED ="KEY_BARBER_SELECTED" ;
     public static final java.lang.String KEY_STEP ="KEY_STEP" ;
     public static final java.lang.String KEY_DISPLAY_TIME_SLOT = "DISPLAY_TIME_SLOT";
-    public static final java.lang.String KEY_CONFIRM_BOOKING ="CONFIRM_BOOKING" ;
-    public static final java.lang.String KEY_TIME_SLOT = "TIME_SLOT";
-
-    public static java.lang.String IS_LOGIN = "IsLogin";
+    public static final String KEY_CONFIRM_BOOKING ="CONFIRM_BOOKING" ;
+    public static final Object KEY_TIME_SLOT = "TIME_SLOT";
+    public static final Object DISABLE_TAG = "DISABLE" ;
+    public static String IS_LOGIN = "IsLogin";
     public static User currentUser;
     public static final int TIME_SLOT_TOTAL = 6;
     public static Salon currentSalon;
@@ -42,6 +43,7 @@ public class Common {
     public static Barber currentBarber;
     public static int currentTimeSlot = -1;
     public static Calendar currentDate = Calendar.getInstance();
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
 
     public static java.lang.String convertTimeSlotToString(int slot) {
         switch(slot)
