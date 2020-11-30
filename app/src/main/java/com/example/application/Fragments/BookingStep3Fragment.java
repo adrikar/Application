@@ -18,9 +18,10 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.*;
 
 import com.example.application.Common.*;
+import com.example.application.model.*;
 import com.google.android.gms.stats.*;
 import com.google.api.*;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.*;
 
 import butterknife.*;
 import butterknife.BindView;
@@ -56,14 +57,65 @@ public class BookingStep3Fragment extends Fragment {
         public void onReceive(Context context, Intent intent){
             Calendar date = Calendar.getInstance();
             date.add(Calendar.DATE, 0);
-            loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
+            loadAvailableTimeSlotOfBarber(Common.currentBarber.getBarberId(),
                     simpleDateFormat.format(date.getTime()));
         }
 
 
 
-    private void loadAvailableTimeSlotofBarber(String barberID, String date){
+    private void loadAvailableTimeSlotOfBarber(String barberId, java.lang.String bookDate){
         dialog.show();
+
+        barberDoc= FirebaseFirestore.getInstance()
+                .collection("AllSalon")
+                .document(Common.city)
+                .collection("Branch")
+                .document(Common.currentSalon.getSalonId())
+                .collection("Barber")
+                .document(Common.currentBarber.getBarberId());
+
+        barberDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot>task){
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if(documentSnapshot.exists())
+                    {
+                        CollectionReference date =FirebaseFirestore.getInstance()
+                                .collection("AllSalon")
+                                .document(Common.city)
+                                .collection("Branch")
+                                .document(Common.currentSalon.getSalonId())
+                                .collection("Barber")
+                                .document(Common.currentBarber.getBarberId())
+                                .collection(bookDate);
+                        date.get()addOnCompleteLisener(new OnCompleteListener<QuerySnapshot>(){
+                            @Override
+                            public  void onComplete(@NonNull Task<QuerySnapshot>task){
+                                if(task.isSuccessful()){
+                                    QuerySnapshot querySnapshot=task.getResult();
+                                    if(querySnapshot.isEmpty())
+                                        iTimeSlotLoadListener.onTimeSlotLoadEmpty();
+                                    else{
+                                        List<TimeSlot> timeSlots = new ArrayList<>();
+                                        for(QueryDocumentSnapshot document:task.getResult())
+                                            timeSlots.add(document.toObject(TimeSlot.class));
+                                        iTimeSlotLoadListener.onTimeSlotLoadSuccess(timeSlots);
+                                    }
+                                }
+                            }
+                    }).addOnFailureListener(new OnFailureListener(){
+                        @Override
+                        public void onFailure(@NonNull Exception e){
+                            iTimeSlotLoadListener.onTimeSlotLoadFailed(e.getMessage());
+                        }
+                    });
+                    }
+
+                }
+            }
+
+        });
     }
 
 
