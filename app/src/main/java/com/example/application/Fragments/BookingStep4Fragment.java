@@ -32,18 +32,18 @@ public class BookingStep4Fragment extends Fragment {
     LocalBroadcastManager localBroadcastManager;
     Unbinder unbinder;
 
-    @BindView(R.id.txt_booking_table_text)
-    TextView txt_booking_table_text;
+    @BindView(R.id.txt_booking_barber_text)
+    TextView txt_booking_barber_text;
     @BindView(R.id.txt_booking_time_text)
     TextView txt_booking_time_text;
-    @BindView(R.id.txt_rest_address)
-    TextView txt_rest_address;
-    @BindView(R.id.txt_rest_open_hours)
-    TextView txt_rest_open_hours;
-    @BindView(R.id.txt_rest_phone)
-    TextView txt_rest_phone;
-    @BindView(R.id.txt_rest_website)
-    TextView txt_rest_website;
+    @BindView(R.id.txt_salon_address)
+    TextView txt_salon_address;
+    @BindView(R.id.txt_salon_open_hours)
+    TextView txt_salon_open_hours;
+    @BindView(R.id.txt_salon_phone)
+    TextView txt_salon_phone;
+    @BindView(R.id.txt_salon_website)
+    TextView txt_salon_website;
 
     BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
         @Override
