@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.google.api.Context;
 
 import java.text.SimpleDateFormat;
@@ -198,7 +200,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
     }
    @Override
    public void onTimeSlotLoadSuccess(List<TimeSlot> timeSlotList){
-       MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext(),timeSlotList);
+       MyTimeSlotAdapter adapter= new MyTimeSlotAdapter(getContext(), timeSlotList);
        recycler_time_slot.setAdapter(adapter);
 
        dialog.dismiss();
