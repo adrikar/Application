@@ -17,11 +17,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.application.Common.Common;
 import com.example.application.R;
+import com.example.application.model.BookingInformation;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.example.application.Common.Common.KEY_CONFIRM_BOOKING;
@@ -46,6 +49,25 @@ public class BookingStep4Fragment extends Fragment {
     TextView txt_salon_phone;
     @BindView(R.id.txt_salon_website)
     TextView txt_salon_website;
+
+    @OnClick(R.id.btn_confirm)
+            void confirmBooking(){
+        BookingInformation bookingInformation = new BookingInformation();
+
+        bookingInformation.setBarberId(Common.currentBarber.getBarberId());
+        bookingInformation.setBarberName(Common.currentBarber.getName());
+        bookingInformation.setCustomerName(Common.currentUser.getName());
+        bookingInformation.setCustomerPhone(Common.currentUser.getPhoneNumber());
+        bookingInformation.setSalonId(Common.currentSalon.getSalonId());
+        bookingInformation.setSaloName(Common.currentSalon.getName());
+        bookingInformation.setSalonAddress(Common.currentSalon.getAddress());
+        bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
+                .append(" at ")
+                .append(simpleDateFormat.format(Common.currentDate.getTime())).toString());
+        bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
+
+        DocumentReference bookingDate =
+    }
 
     BroadcastReceiver confirmBookingReceiver = new BroadcastReceiver() {
         @Override

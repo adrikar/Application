@@ -18,8 +18,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.*;
 
 import com.example.application.Common.*;
+import com.example.application.model.Barber;
 import com.google.android.gms.stats.*;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.api.*;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 
 import butterknife.*;
@@ -34,6 +38,8 @@ import com.example.application.Interface.ITimeSlotLoadListener;
 
 
 import com.example.application.R;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BookingStep3Fragment extends Fragment {
     DocumentReference barberDoc;
@@ -51,19 +57,21 @@ public class BookingStep3Fragment extends Fragment {
     HorizontalCalendarView calendarView;
     SimpleDateFormat simpleDateFormat;
 
+BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
+    @Override
+    public void onReceive(android.content.Context context, Intent intent) {
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DATE, 0);
+        loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
+                simpleDateFormat.format(date.getTime()));
+    }
+};
 
-        @Override
-        public void onReceive(Context context, Intent intent){
-            Calendar date = Calendar.getInstance();
-            date.add(Calendar.DATE, 0);
-            loadAvailableTimeSlotofBarber(Common.currentBarber.getBarberId(),
-                    simpleDateFormat.format(date.getTime()));
-        }
 
 
-
-    private void loadAvailableTimeSlotofBarber(String barberID, String date){
+    private void loadAvailableTimeSlotofBarber(String barberID, String bookDate){
         dialog.show();
+
     }
 
 
@@ -77,6 +85,7 @@ public class BookingStep3Fragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         iTimeSlotLoadListener = (ITimeSlotLoadListener) this;
 
         localBroadcastManager= LocalBroadcastManager.getInstance(getContext());
