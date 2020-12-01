@@ -43,7 +43,7 @@ public class BookingStep1Fragment extends Fragment implements IAllRestLoadListen
     CollectionReference allRestRef;
     CollectionReference branchRef;
 
-    IAllSalonLoadListener iAllRestLoadListener;
+    IAllRestLoadListener iAllRestLoadListener;
     IBranchLoadListener iBranchLoadListener;
 
     @BindView(R.id.spinner)

@@ -72,10 +72,10 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
         dialog.show();
 
         tableDoc= FirebaseFirestore.getInstance()
-                .collection("AllSalon")
+                .collection("AllRest")
                 .document(Common.city)
                 .collection("Branch")
-                .document(Common.currentSalon.getSalonId())
+                .document(Common.currentRest.getRestId())
                 .collection("Table")
                 .document(Common.currentTable.getTableId());
 
@@ -90,7 +90,7 @@ BroadcastReceiver displayTimeSlot = new BroadcastReceiver() {
                                 .collection("AllSalon")
                                 .document(Common.city)
                                 .collection("Branch")
-                                .document(Common.currentSalon.getSalonId())
+                                .document(Common.currentRest.getRestId())
                                 .collection("Table")
                                 .document(Common.currentTable.getTableId())
                                 .collection(bookDate);
